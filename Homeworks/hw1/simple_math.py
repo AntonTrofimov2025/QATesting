@@ -28,7 +28,7 @@ class SimpleMath:
         """
         return a * b
 
-    def div(self, a, b):
+    def div(self, a: int | float, b: int | float):
         """
         Divides the value of an a by b.
 
