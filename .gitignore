@@ -184,7 +184,7 @@ pyrightconfig.json
 
 # Unit test / coverage reports
 
-.png
+*.png
 
 # Translations
 
