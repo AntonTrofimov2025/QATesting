@@ -38,6 +38,7 @@ def test_about_page(driver):
     driver.get("https://itcareerhub.de/ru")
     sleep(1)
     about_link = driver.find_element(By.XPATH, '//a[@href="#submenu:more2"]/div/span')
+    # about_link = driver.find_element(By.CSS_SELECTOR, 'span.tn-atom__button-text:nth-child(1)')
     assert about_link.text == 'О нас', "The actual and expected results do not match."
     about_link.click()
     sleep(1)
