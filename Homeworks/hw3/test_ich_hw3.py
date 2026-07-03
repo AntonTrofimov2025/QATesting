@@ -19,8 +19,8 @@ def test_is_display(driver):
     assert ich_logo.is_displayed()
 
     programs = driver.find_element(By.CSS_SELECTOR, '[href="#submenu:more"]')
-    programs_span = programs.find_element(By.TAG_NAME, 'span')
-    assert programs_span.is_displayed()
+    programs_final = programs.find_element(By.TAG_NAME, 'span')
+    assert programs_final.is_displayed()
 
     payments = driver.find_element(By.CSS_SELECTOR, '[href="#rec1921734713"] span')
     assert payments.is_displayed()
@@ -34,7 +34,7 @@ def test_is_display(driver):
     reviews = driver.find_element(By.CSS_SELECTOR, '[href="/reviews"] span')
     assert reviews.is_displayed()
 
-    blog = driver.find_element(By.CSS_SELECTOR, '[href="https://blog.itcareerhub.de/"] span')
+    blog = driver.find_element(By.CSS_SELECTOR, '[data-elem-id="176285426168494440"]')
     assert blog.is_displayed()
 
     change_ru = driver.find_element(By.CSS_SELECTOR, '[href = "/ru"]')
@@ -56,3 +56,4 @@ def test_is_display(driver):
     callback.click()
     sleep(1)
     assert "Запишитесь на " in driver.find_element(By.CSS_SELECTOR, '[field="tn_text_175871291756015470"]').text
+
