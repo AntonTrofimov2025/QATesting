@@ -18,8 +18,9 @@ def test_is_display(driver):
     ich_logo = driver.find_element(By.CSS_SELECTOR, '[alt="IT Career Hub"]')
     assert ich_logo.is_displayed()
 
-    programs = driver.find_element(By.CSS_SELECTOR, '[href="#submenu:more"] span')
-    assert programs.is_displayed()
+    programs = driver.find_element(By.CSS_SELECTOR, '[href="#submenu:more"]')
+    programs_span = programs.find_element(By.TAG_NAME, 'span')
+    assert programs_span.is_displayed()
 
     payments = driver.find_element(By.CSS_SELECTOR, '[href="#rec1921734713"] span')
     assert payments.is_displayed()
@@ -49,9 +50,9 @@ def test_is_display(driver):
 
     driver.set_window_size(640, 720)
 
-    callback = driver.find_element(By.CSS_SELECTOR, '[href="#popup:form-tr"] > div > span')
+    callback = driver.find_element(By.CSS_SELECTOR, '[data-elem-id="1754046238620"]')
     ActionChains(driver).scroll_by_amount(0, 450).perform()
     sleep(1)
     callback.click()
     sleep(1)
-    assert "Запишитесь на " in driver.find_element(By.CSS_SELECTOR, 'div[field="tn_text_175871291756015470"]').text
+    assert "Запишитесь на " in driver.find_element(By.CSS_SELECTOR, '[field="tn_text_175871291756015470"]').text
