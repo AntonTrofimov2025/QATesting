@@ -19,10 +19,11 @@ def test_itch_in_blue_button(driver):
     blue_button.click()
 
     # assert 'ITCH' in blue_button.text # Works, but too simple approach and not reliable.
-    assert (WebDriverWait(driver, 10)
+    (WebDriverWait(driver, 10)
             .until(EC.text_to_be_present_in_element
-            ((By.ID, 'updatingButton'), 'ITCH'))),\
-        'ITCH unfortunately not appeared.'
+            ((By.ID, 'updatingButton'), 'ITCH')))
+
+    assert blue_button.text == 'ITCH', 'ITCH unfortunately not appeared.'
 
 def test_wait_till_all_images(driver):
     driver.get('https://bonigarcia.dev/selenium-webdriver-java/loading-images.html')

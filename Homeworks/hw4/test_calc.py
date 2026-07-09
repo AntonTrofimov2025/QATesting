@@ -29,6 +29,9 @@ def test_15_after_45_seconds(driver):
     find_equal = driver.find_element(By.CSS_SELECTOR, '.keys > .btn:nth-child(15)')
     find_equal.click()
 
-    assert (WebDriverWait(driver, 45)
+    (WebDriverWait(driver, 45)
             .until(EC.text_to_be_present_in_element
-                               ((By.CSS_SELECTOR, 'div.screen'), '15'))), "15 has not appeared :'("
+                               ((By.CSS_SELECTOR, 'div.screen'), '15')))
+
+    assert driver.find_element(By.CSS_SELECTOR, 'div.screen').text == '15', "15 has not appeared :'("
+
