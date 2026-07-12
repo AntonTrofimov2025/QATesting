@@ -32,9 +32,14 @@ def test_wait_till_all_images(driver):
     #         .until(EC.visibility_of_element_located
     #         ((By.CSS_SELECTOR, '#image-container > img:nth-child(4)'))))
 
-    (WebDriverWait(driver, 10)
+    # (WebDriverWait(driver, 10)             # Good, but another option below is better :)
+    #         .until(lambda dr:
+    #         len([image.is_displayed() for image in dr.find_elements(By.CSS_SELECTOR, '#image-container > img') if image.is_displayed()]
+    #                             ) == 4))
+
+    (WebDriverWait(driver, 10)       # Best way! Works x2 faster than the version above ;)
             .until(lambda dr:
-            len([image.is_displayed() for image in dr.find_elements(By.CSS_SELECTOR, '#image-container > img') if image.is_displayed()]
+            sum(1 for image in dr.find_elements(By.CSS_SELECTOR, '#image-container > img') if image.is_displayed()
                                 ) == 4))
 
     attr_3rd_img = driver.find_element(By.CSS_SELECTOR, '#image-container > img:nth-child(3)').get_attribute('alt')
