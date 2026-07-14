@@ -44,4 +44,4 @@ def test_wait_till_all_images(driver):
 
     attr_3rd_img = driver.find_element(By.CSS_SELECTOR, '#image-container > img:nth-child(3)').get_attribute('alt')
 
-    assert attr_3rd_img == 'award'
+    assert attr_3rd_img == 'award', 'award unfortunately not appeared.'
