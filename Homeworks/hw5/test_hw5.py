@@ -1,5 +1,3 @@
-from time import sleep
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -52,11 +50,8 @@ def test_drag_photos(driver):
     driver.switch_to.frame(iframe)
     first_photo = driver.find_element(By.CSS_SELECTOR, '#gallery li:nth-child(1)')
     trash = driver.find_element(By.ID, 'trash')
-    # driver.implicitly_wait(5)
     ActionChains(driver).scroll_by_amount(0, 200).perform()
     ActionChains(driver).drag_and_drop(first_photo, trash).perform()
-    sleep(1.5)
     WebDriverWait(driver, 10).until(lambda dr: len(dr.find_elements(By.CSS_SELECTOR, '#trash > ul li')) == 1)
     WebDriverWait(driver, 10).until(lambda dr: len(dr.find_elements(By.CSS_SELECTOR, '[id="gallery"] li')) == 3)
-    sleep(1)
 
