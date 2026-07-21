@@ -10,7 +10,7 @@ class TestUserCart:
         self.cart_page.assert_cart_page()
         self.cart_page.proceed_to_checkout()
         self.checkout_page.fill_form_and_continue()
-        self.common.assert_naming_of_container_item(4)
+        self.checkout_page.assert_container_item_name(4)
         self.checkout_page.click_finish()
         self.checkout_page.assert_text_in_order_confirmation()
         self.checkout_page.back_home()

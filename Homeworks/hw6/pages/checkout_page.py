@@ -14,6 +14,7 @@ class CheckoutPage:
         TOTAL_PRICE_VALUE = 'summary_total_label'
         BACK_HOME_BUTTON = 'back-to-products'
         CONFIRMATION_TEXT_VALUE = 'complete-header'
+        CONTAINER_ITEM_TEMPLATE = '#item_{}_title_link > div'
 
     def __init__(self, driver):
         self.driver = driver
@@ -61,4 +62,12 @@ class CheckoutPage:
     def click_finish(self):
         self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.FINISH_BUTTON))).click()
 
+    def assert_container_item_name(self, containers_number: int, expected_name: str = 'Sauce Labs Backpack'):
+        assert expected_name == self.get_text_of_container_item(containers_number), \
+            'Actual and expected texts don\'t match.'
+
+    def get_text_of_container_item(self, number):
+        return self.wait.until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, self.Locator.CONTAINER_ITEM_TEMPLATE.format(number)))).text
 

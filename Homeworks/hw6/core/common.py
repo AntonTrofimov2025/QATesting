@@ -14,13 +14,6 @@ class Common:
     # def click_by_id(self, arg):
     #     self.wait.until(EC.element_to_be_clickable((By.ID, arg))).click()
 
-    def assert_naming_of_container_item(self, containers_number):
-        assert 'Sauce Labs Backpack' == self.get_text_of_container_item(containers_number), \
-            'Actual and expected texts don\'t match.'
-
-    def get_text_of_container_item(self, number):
-        return self.driver.find_element(By.CSS_SELECTOR, f'#item_{number}_title_link > div').text
-
     def fetch_cart_elements_quantity(self):
         return self.wait.until(
             lambda dr: dr.find_element(By.CSS_SELECTOR, self.Locator.ITEMS_IN_CART_VALUE)

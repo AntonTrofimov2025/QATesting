@@ -36,7 +36,7 @@ class AuthPage:
         self.find_element_by_id(self.Locator.LOGIN_BUTTON).click()
 
     def find_element_by_id(self, arg):
-        return self.driver.find_element(By.ID, arg)
+        return self.wait.until(EC.presence_of_element_located((By.ID, arg)))
 
     def log_out(self):
         self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.LOGOUT))).click()
