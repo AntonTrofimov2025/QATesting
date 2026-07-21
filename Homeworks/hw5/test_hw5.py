@@ -53,5 +53,5 @@ def test_drag_photos(driver):
     ActionChains(driver).scroll_by_amount(0, 200).perform()
     ActionChains(driver).drag_and_drop(first_photo, trash).perform()
     WebDriverWait(driver, 10).until(lambda dr: len(dr.find_elements(By.CSS_SELECTOR, '#trash > ul li')) == 1)
-    WebDriverWait(driver, 10).until(lambda dr: len(dr.find_elements(By.CSS_SELECTOR, '[id="gallery"] li')) == 3)
+    WebDriverWait(driver, 10).until(lambda dr: len(dr.find_elements(By.CSS_SELECTOR, '#gallery li')) == 3)
 
