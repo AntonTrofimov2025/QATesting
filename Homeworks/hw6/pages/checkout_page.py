@@ -4,21 +4,33 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 class CheckoutPage:
+
+    class Locator:
+        FIRSTNAME = 'first-name'
+        LASTNAME = 'last-name'
+        ZIPCODE = 'postal-code'
+        FINISH_BUTTON = 'finish'
+        CONTINUE_BUTTON = 'continue'
+        TOTAL_PRICE_VALUE = 'summary_total_label'
+        BACK_HOME_BUTTON = 'back-to-products'
+        CONFIRMATION_TEXT_VALUE = 'complete-header'
+
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
         self.actions = ActionChains(driver)
 
-    def send_keys_by_id(self, arg, key):
-        self.wait.until(EC.element_to_be_clickable((By.ID, arg))).send_keys(key)
+    def send_keys_by_id(self, locator, value):
+        self.wait.until(EC.element_to_be_clickable((By.ID, locator))).send_keys(value)
 
-    def fill_form(self):
+    def fill_form_and_continue(self):
         self.wait.until(EC.url_contains('checkout-step-one.html'))
         assert 'checkout-step-one.html' in self.driver.current_url,\
             'Wrong url'
-        self.send_keys_by_id('first-name', 'Tony')
-        self.send_keys_by_id('last-name', 'Kwark')
-        self.send_keys_by_id('postal-code', '19392')
+        self.send_keys_by_id(self.Locator.FIRSTNAME, 'Tony')
+        self.send_keys_by_id(self.Locator.LASTNAME, 'Kwark')
+        self.send_keys_by_id(self.Locator.ZIPCODE, '19392')
+        self.click_continue()
 
     def assert_text_in_order_confirmation(self):
         self.wait.until(EC.url_contains('checkout-complete.html'))
@@ -28,18 +40,25 @@ class CheckoutPage:
             'Actual and expected texts don\'t match.'
 
     def get_text_of_order_confirmation(self):
-        return self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'complete-header'))).text
+        return self.wait.until(
+            EC.presence_of_element_located((By.CLASS_NAME, self.Locator.CONFIRMATION_TEXT_VALUE))).text
 
-    def scroll_down_by(self, y):
+    def scroll_down_by(self, y: int):
         self.actions.scroll_by_amount(0, y).perform()
 
     def back_home(self):
-        self.wait.until(EC.element_to_be_clickable((By.ID, 'back-to-products'))).click()
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.BACK_HOME_BUTTON))).click()
 
     def assert_total_price(self, expected_price: str):
         assert expected_price in self.total_price_value(), 'Price values do not match.'
 
     def total_price_value(self):
-        return self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'summary_total_label'))).text
+        return self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, self.Locator.TOTAL_PRICE_VALUE))).text
+
+    def click_continue(self):
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.CONTINUE_BUTTON))).click()
+
+    def click_finish(self):
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.FINISH_BUTTON))).click()
 
 
