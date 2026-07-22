@@ -41,6 +41,9 @@ class InventoryPage:
     def add_backpack_to_cart(self):
         self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.BACKPACK_BUTTON))).click()
 
+    def add_sauce_labs_bolt_t_shirt_to_cart(self):
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.BOLT_SHIRT_BUTTON))).click()
+
     def click_cart_button(self):
         self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, self.Locator.CART_BUTTON))).click()
 

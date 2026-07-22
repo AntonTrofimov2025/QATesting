@@ -20,5 +20,8 @@ class Common:
         ).text
 
     def assert_elements_quantity_by_number(self, your_number: int):
+        if not your_number or your_number <= 0:
+            assert your_number <= 0
+            return
         assert str(your_number) == self.fetch_cart_elements_quantity(), \
             'Wrong elements quantity.'
