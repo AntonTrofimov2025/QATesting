@@ -1,11 +1,10 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
+from Homeworks.hw6.core.common import Common
 
-class InventoryPage:
+class InventoryPage(Common):
 
-    class Locator:
+    class Locator(Common.Locator):
         BACKPACK_BUTTON = "add-to-cart-sauce-labs-backpack"
         BOLT_SHIRT_BUTTON = "add-to-cart-sauce-labs-bolt-t-shirt"
         ONESIE_BUTTON = "add-to-cart-sauce-labs-onesie"
@@ -14,9 +13,10 @@ class InventoryPage:
         CART_BUTTON = 'shopping_cart_link'
 
     def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
-        self.actions = ActionChains(driver)
+        super().__init__(driver)
+        # self.driver = driver
+        # self.wait = WebDriverWait(driver, 10)
+        # self.actions = ActionChains(driver)
 
     def assert_inventory_page(self):
         self.wait.until(EC.url_contains('inventory.html'))

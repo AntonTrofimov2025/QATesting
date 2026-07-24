@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 class Common:
 
@@ -10,6 +11,8 @@ class Common:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
+        self.actions = ActionChains(driver)
+
 
     # def click_by_id(self, arg):
     #     self.wait.until(EC.element_to_be_clickable((By.ID, arg))).click()

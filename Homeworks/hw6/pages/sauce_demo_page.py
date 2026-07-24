@@ -1,11 +1,11 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from Homeworks.hw6.core.common import Common
 
 
-class AuthPage:
+class AuthPage(Common):
 
-    class Locator:
+    class Locator(Common.Locator):
         PASSWORD = 'secret_sauce'
         USERNAME_FIELD = 'user-name'
         PASSWORD_FIELD = 'password'
@@ -13,8 +13,9 @@ class AuthPage:
         LOGOUT = 'logout_sidebar_link'
 
     def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
+        super().__init__(driver)
+        # self.driver = driver
+        # self.wait = WebDriverWait(driver, 10)
 
     def open(self):
         self.driver.get("https://www.saucedemo.com/")

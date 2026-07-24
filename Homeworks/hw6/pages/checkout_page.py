@@ -1,11 +1,10 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
+from Homeworks.hw6.core.common import Common
 
-class CheckoutPage:
+class CheckoutPage(Common):
 
-    class Locator:
+    class Locator(Common.Locator):
         FIRSTNAME = 'first-name'
         LASTNAME = 'last-name'
         ZIPCODE = 'postal-code'
@@ -17,9 +16,10 @@ class CheckoutPage:
         CONTAINER_ITEM_TEMPLATE = '#item_{}_title_link > div'
 
     def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
-        self.actions = ActionChains(driver)
+        super().__init__(driver)
+        # self.driver = driver
+        # self.wait = WebDriverWait(driver, 10)
+        # self.actions = ActionChains(driver)
 
     def send_keys_by_id(self, locator, value):
         self.wait.until(EC.element_to_be_clickable((By.ID, locator))).send_keys(value)
