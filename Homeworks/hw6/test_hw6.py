@@ -18,7 +18,7 @@ class TestUserCart:
         self.inventory_page.scroll_up_by(300)
         self.inventory_page.burger_click()
         self.inventory_page.reset_state()
-        self.auth_page.log_out()
+        self.inventory_page.log_out()
 
     def test_add_sauce_labs_bolt(self):
         self.auth_page.login_with_credentials('problem_user')
@@ -27,7 +27,7 @@ class TestUserCart:
         self.inventory_page.assert_elements_quantity_by_number(0)
         self.inventory_page.burger_click()
         self.inventory_page.reset_state()
-        self.auth_page.log_out()
+        self.inventory_page.log_out()
 
     def test_hw6_add_three_items(self):
         self.auth_page.login_with_credentials('standard_user')
@@ -45,5 +45,5 @@ class TestUserCart:
         self.inventory_page.scroll_up_by(300)
         self.inventory_page.burger_click()
         self.inventory_page.reset_state()
-        self.auth_page.log_out()
+        self.inventory_page.log_out()
 

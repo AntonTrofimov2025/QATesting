@@ -44,9 +44,6 @@ class CheckoutPage(Common):
         return self.wait.until(
             EC.presence_of_element_located((By.CLASS_NAME, self.Locator.CONFIRMATION_TEXT_VALUE))).text
 
-    def scroll_down_by(self, y: int):
-        self.actions.scroll_by_amount(0, y).perform()
-
     def back_home(self):
         self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.BACK_HOME_BUTTON))).click()
 

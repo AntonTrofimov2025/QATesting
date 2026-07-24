@@ -7,6 +7,9 @@ class Common:
 
     class Locator:
         ITEMS_IN_CART_VALUE = '#shopping_cart_container > a > span'
+        LOGOUT = 'logout_sidebar_link'
+        BURGER_MENU = 'react-burger-menu-btn'
+        RESET_STATE = 'reset_sidebar_link'
 
     def __init__(self, driver):
         self.driver = driver
@@ -28,3 +31,19 @@ class Common:
             return
         assert str(your_number) == self.fetch_cart_elements_quantity(), \
             'Wrong elements quantity.'
+
+    def log_out(self):
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.LOGOUT))).click()
+
+    def burger_click(self):
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.BURGER_MENU))).click()
+
+    def reset_state(self):
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.Locator.RESET_STATE))).click()
+
+    def scroll_up_by(self, arg: int):
+        self.actions.scroll_by_amount(0, -arg).perform()
+
+    def scroll_down_by(self, y: int):
+        self.actions.scroll_by_amount(0, y).perform()
+
