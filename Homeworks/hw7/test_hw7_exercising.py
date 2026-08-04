@@ -1,5 +1,5 @@
 import pytest
-from Homeworks.hw7.myhw7_api import MyHW7_Api
+from Homeworks.hw7.myhw7_api import MyHW7Api
 
 # base_url = 'http://5.101.50.27:8000'
 #
@@ -20,7 +20,7 @@ from Homeworks.hw7.myhw7_api import MyHW7_Api
 
 @pytest.fixture()
 def my_api():
-    return MyHW7_Api()
+    return MyHW7Api()
 
 def test_auth_v2(my_api):
     token = my_api.get_token()
@@ -74,4 +74,18 @@ def test_active_companies(my_api):
     response = [company for company in my_api.get_all_companies() if company['is_active']]
     print(len(response))
     assert len(response) >= 4
+
+def test_try_create_company_empty_body(my_api):
+    response = my_api.try_create_with_empty_body()
+    assert response['detail'][0]['msg'] == 'Field required'
+    print()
+    print(response)
+
+def test_creation(my_api):
+    before_creation = my_api.get_all_companies()
+    print(len(before_creation))
+    my_api.create_company()
+    after_creation = my_api.get_all_companies()
+    print(len(after_creation))
+    assert len(after_creation) == len(before_creation) + 1
 
