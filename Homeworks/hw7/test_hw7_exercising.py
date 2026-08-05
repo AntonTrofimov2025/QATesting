@@ -20,7 +20,7 @@ from Homeworks.hw7.myhw7_api import MyHW7Api
 
 @pytest.fixture()
 def my_api():
-    return MyHW7Api()
+    return MyHW7Api(base_url='http://5.101.50.27:8000')
 
 def test_auth_v2(my_api):
     token = my_api.get_token()
@@ -37,17 +37,38 @@ def test_create_company(my_api):
 def test_get_company(my_api):
     created = my_api.create_company()
     get_this_company = my_api.get_company(created)
-    assert get_this_company['name'] == 'ITCH'
-    assert get_this_company['description'] == 'курсы'
+    assert get_this_company['name'] == 'ITCH' and get_this_company['name'] == created['name']
+    assert get_this_company['description'] == 'курсы' and get_this_company['description'] == created['description']
 
 def test_delete_company(my_api):
     created = my_api.create_company()
     company_id = created['id']
+    companies_before = list(my_api.get_all_companies())
     response = my_api.delete_company(created)
+    companies_after = list(my_api.get_all_companies())
+    assert len(companies_after) == len(companies_before) - 1
     assert response['detail'] == "Компания успешно удалена"
     assert response['company_id'] == company_id
+    deleted = my_api.get_company(created)
+    assert deleted['detail'] == 'Компания не найдена'
     print()
     print(response)
+
+def test_put_company(my_api):
+    created = my_api.create_company()
+    print(created)
+    new_data ={'name': 'HELLO', 'description': 'курсы UPDATED', 'is_active': False}
+    updated = my_api.update_company(created, new_data, 'patch')
+    print(updated)
+    assert 'HELLO' in updated['name']
+    assert 'курсы UPDATED' in updated['description']
+
+def test_company_status(my_api):
+    created = my_api.create_company()
+    print(f"Active?: {created['is_active']}")
+    my_api.update_status(created, False)
+    updated = my_api.get_company(created)
+    print(f"Active?: {updated['is_active']}")
 
 ##############################################
 # def test_delete_unnecessary_residuals(my_api):
